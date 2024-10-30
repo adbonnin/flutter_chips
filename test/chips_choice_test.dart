@@ -23,8 +23,8 @@ void main() {
     // then:
     expect(find.byType(InputChip), findsNWidgets(2));
 
-    expect(find.text('apple'), findsOneWidget);
-    expect(find.text('banana'), findsOneWidget);
+    expect(find.widgetWithText(InputChip, 'apple'), findsOneWidget);
+    expect(find.widgetWithText(InputChip, 'banana'), findsOneWidget);
   });
 
   testWidgets('should select an input chip', (tester) async {

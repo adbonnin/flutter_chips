@@ -14,7 +14,7 @@ In your library add the following import:
 import 'package:chips/chips.dart';
 ```
 
-Then you just have to add a `ChoiceChips` with values :
+Then you just have to add a `ChoiceChips` with values:
 
 ```dart
 ChipsChoice(

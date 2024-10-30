@@ -10,7 +10,7 @@ class ChipsChoice<T> extends StatelessWidget {
     this.isEnabled,
     this.onChanged,
     this.onSelectionChanged,
-    this.chipBuilder = defaultChipBuilder,
+    this.chipBuilder = defaultInputChipBuilder,
     this.direction = Axis.horizontal,
     this.alignment = WrapAlignment.start,
     this.spacing = 8.0,

@@ -9,7 +9,7 @@ typedef InputChipBuilder = Widget Function<T>(
   VoidCallback? onDeleted,
 });
 
-Widget defaultChipBuilder<T>(
+Widget defaultInputChipBuilder<T>(
   BuildContext context,
   T chip, {
   required bool selected,

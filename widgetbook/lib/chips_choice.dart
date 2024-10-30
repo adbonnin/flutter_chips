@@ -2,6 +2,7 @@ import 'package:chips/chips.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
+import 'package:widgetbook_workspace/showcase_card.dart';
 
 @widgetbook.UseCase(name: 'Default', type: ChipsChoice)
 Widget buildChipsChoiceUseCase(BuildContext context) {
@@ -41,7 +42,7 @@ class _ChipsChoiceUseCaseState extends State<ChipsChoiceUseCase> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return ShowcaseCard(
       child: ChipsChoice(
         values: _values,
         selected: _selected,
