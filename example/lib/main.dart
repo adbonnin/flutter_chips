@@ -34,20 +34,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ChipsChoice(
-          values: _values,
-          selected: _selected,
-          onChanged: _onChanged,
-          onSelectionChanged: _onSelectionChanged,
+    return Scaffold(
+      body: Container(
+        padding: const EdgeInsets.all(16),
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ChipsChoice(
+              values: _values,
+              selected: _selected,
+              onChanged: _onChanged,
+              onSelectionChanged: _onSelectionChanged,
+            ),
+            const SizedBox(height: 24),
+            ChipsInputField(
+              values: _values,
+              onChanged: _onChanged,
+              fromText: (text) => text,
+            )
+          ],
         ),
-        ChipsInputField(
-          values: _values,
-          onChanged: _onChanged,
-          fromText: (text) => text,
-        )
-      ],
+      ),
     );
   }
 
