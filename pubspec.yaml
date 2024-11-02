@@ -1,6 +1,6 @@
 name: chips
 description: Add customizable and easy-to-use chip widgets to your Flutter apps for seamless user input and display.
-version: 0.0.2
+version: 0.0.3
 
 repository: https://github.com/adbonnin/flutter_chips
 issue_tracker: https://github.com/adbonnin/flutter_chips/issues
