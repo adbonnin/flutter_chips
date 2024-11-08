@@ -11,6 +11,7 @@ class ChipsInputField<T> extends StatefulWidget {
     required this.fromText,
     this.chipBuilder = defaultInputChipBuilder,
     this.onChanged,
+    this.textFieldFocusNode,
     this.textFieldViewValidator,
     this.decoration,
   });
@@ -19,6 +20,7 @@ class ChipsInputField<T> extends StatefulWidget {
   final T Function(String text) fromText;
   final InputChipBuilder chipBuilder;
   final ValueChanged<List<T>>? onChanged;
+  final FocusNode? textFieldFocusNode;
   final FormFieldValidator<String>? textFieldViewValidator;
   final InputDecoration? decoration;
 
@@ -28,8 +30,10 @@ class ChipsInputField<T> extends StatefulWidget {
 
 class _ChipsInputFieldState<T> extends State<ChipsInputField<T>> {
   final _textFieldController = TextEditingController();
-  final _keyboardFocusNode = FocusNode();
-  final _textFieldFocusNode = FocusNode();
+  final _keyboardFocusNode = FocusNode(skipTraversal: true);
+
+  FocusNode? _textFieldFocusNode;
+  FocusNode get _effectiveTextFieldFocusNode => widget.textFieldFocusNode ?? (_textFieldFocusNode ??= FocusNode());
 
   late Iterable<T> _values;
 
@@ -40,7 +44,7 @@ class _ChipsInputFieldState<T> extends State<ChipsInputField<T>> {
     super.initState();
 
     _values = widget.values;
-    _textFieldFocusNode.addListener(_onTextFieldFocusChanged);
+    _effectiveTextFieldFocusNode.addListener(_handleTextFieldFocusChanged);
     _textFieldController.addListener(_onTextFieldChanged);
   }
 
@@ -51,12 +55,20 @@ class _ChipsInputFieldState<T> extends State<ChipsInputField<T>> {
     if (widget.values != oldWidget.values) {
       _values = widget.values;
     }
+
+    if (widget.textFieldFocusNode != oldWidget.textFieldFocusNode) {
+      (oldWidget.textFieldFocusNode ?? _textFieldFocusNode)?.removeListener(_handleTextFieldFocusChanged);
+      (widget.textFieldFocusNode ?? _textFieldFocusNode)?.addListener(_handleTextFieldFocusChanged);
+    }
   }
 
   @override
   void dispose() {
     _textFieldController.dispose();
-    _textFieldFocusNode.dispose();
+
+    _effectiveTextFieldFocusNode.removeListener(_handleTextFieldFocusChanged);
+    _textFieldFocusNode?.dispose();
+
     _keyboardFocusNode.dispose();
 
     super.dispose();
@@ -124,11 +136,11 @@ class _ChipsInputFieldState<T> extends State<ChipsInputField<T>> {
     widget.onChanged?.call([..._values, value]);
 
     _textFieldController.clear();
-    _textFieldFocusNode.requestFocus();
+    _effectiveTextFieldFocusNode.requestFocus();
   }
 
-  void _onTextFieldFocusChanged() {
-    if (_textFieldFocusNode.hasFocus) {
+  void _handleTextFieldFocusChanged() {
+    if (_effectiveTextFieldFocusNode.hasFocus) {
       setState(() {
         _isLastSelected = false;
       });

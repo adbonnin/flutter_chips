@@ -34,13 +34,27 @@ class _ChipsInputFieldUseCaseState extends State<ChipsInputFieldUseCase> {
   @override
   Widget build(BuildContext context) {
     return ShowcaseCard(
-      child: ChipsInputField(
-        values: _values,
-        onChanged: widget.onChangedEnabled ? _onChanged : null,
-        fromText: (text) => text,
-        decoration: const InputDecoration(
-          border: OutlineInputBorder(),
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ChipsInputField(
+            values: _values,
+            onChanged: _onChanged,
+            fromText: (text) => text,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 24),
+          ChipsInputField(
+            values: _values,
+            onChanged: _onChanged,
+            fromText: (text) => text,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+            ),
+          ),
+        ],
       ),
     );
   }
